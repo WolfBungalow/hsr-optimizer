@@ -73,7 +73,8 @@ export const handler = async (event: APIGatewayEvent): Promise<any> => {
 }
 
 async function getProfile(accountId: string): Promise<ProfileResponse> {
-  const endpoint = `https://enka.network/api/hsr/uid/${accountId}`
+  const endpoint = `https://starrail-showcase.mana.wiki/api/showcase/${accountId}`
+
   console.log('GET ' + endpoint)
 
   const response = await fetch(endpoint, {
