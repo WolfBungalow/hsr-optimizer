@@ -259,6 +259,25 @@ export default function RelicFilterBar(props: {
     window.store.getState().setScoringModalOpen(true)
   }
 
+  function selectRecommendationCharacterRelics() {
+    if (!currentlySelectedCharacterId) return
+  
+    const characterPreferredSets = window.store.getState().charactersById[currentlySelectedCharacterId]
+
+    const uniqueRelicSets = [
+      ...new Set(characterPreferredSets?.form.relicSets.flatMap((subArray) => subArray.slice(1)) ?? []),
+    ]
+    const uniqueOrnamentSets = characterPreferredSets?.form.ornamentSets ?? []
+
+    const currentFilters = window.store.getState().relicTabFilters
+    const updatedFilters = {
+      ...currentFilters,
+      set: [...uniqueRelicSets, ...uniqueOrnamentSets],
+    }
+
+    setRelicTabFilters(updatedFilters)
+  }
+
   function rescoreClicked() {
     characterSelectorChange(currentlySelectedCharacterId!)
   }
@@ -339,6 +358,13 @@ export default function RelicFilterBar(props: {
               style={{ flex: 1, padding: '0px' }}
             >
               {t('RelicFilterBar.ScoringButton')/* Scoring algorithm */}
+            </Button>
+            <Button
+              onClick={selectRecommendationCharacterRelics}
+              style={{ flex: 1, padding: '0px' }}
+              disabled={!currentlySelectedCharacterId}
+            >
+              {'Select relics'/* Select relics */}
             </Button>
           </Flex>
         </Flex>
