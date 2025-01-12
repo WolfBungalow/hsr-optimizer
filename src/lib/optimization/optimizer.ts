@@ -119,7 +119,7 @@ export const Optimizer = {
       return
     }
 
-    OptimizerTabController.scrollToGrid()
+    // OptimizerTabController.scrollToGrid()
     window.optimizerGrid.current.api.setGridOption('loading', true)
 
     const context = generateContext(request)
